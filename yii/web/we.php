@@ -8,7 +8,6 @@ include ('Poo.class.php');
 $poo=new Poo();
 $str=$_GET['str'];
 $token=$poo->find('atoken','account',"atok='$str'");
-echo $token;die;
 define("TOKEN", $token);
 $wechatObj = new wechatCallbackapiTest();
 $wechatObj->valid();
@@ -22,6 +21,7 @@ class wechatCallbackapiTest
 
         if($this->checkSignature()){
             echo $echoStr;
+            $this->responseMsg();
             exit;
         }
     }
@@ -56,7 +56,10 @@ class wechatCallbackapiTest
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }else{
-                echo "Input something...";
+                $msgType = "text";
+                $contentStr = "Welcome to wechat world!";
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                echo $resultStr;
             }
 
         }else {
