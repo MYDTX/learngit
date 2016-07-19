@@ -35,6 +35,15 @@ class wechatCallbackapiTest
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
             $time = time();
+            //加载文字模板
+            $textTpl = "<xml>
+							<ToUserName><![CDATA[%s]]></ToUserName>
+							<FromUserName><![CDATA[%s]]></FromUserName>
+							<CreateTime>%s</CreateTime>
+							<MsgType><![CDATA[%s]]></MsgType>
+							<Content><![CDATA[%s]]></Content>
+							<FuncFlag>0</FuncFlag>
+							</xml>";
             //加载图文模版
             $picTpl = "<xml>
                                    <ToUserName><![CDATA[%s]]></ToUserName>
@@ -62,14 +71,19 @@ class wechatCallbackapiTest
                 $turl = "https://www.baidu.com/index.php?tn=monline_3_dg"; //链接地址
                 $resultStr = sprintf($picTpl, $fromUsername, $toUsername, $time, $msgType, $title,$desription,$image,$turl);
                 echo $resultStr;
-            }elseif($keyword==$two['tuorder']){
+            }elseif($keyword==$two['0']['tuorder']){
                 $msgType = "news";
-                $title = $two['tutitle']; //标题
+                $title = $two['0']['tutitle']; //标题
                 $data  = date('Y-m-d'); //时间
-                $desription = $two['jianjie']; //简介
-                $image = $two['tupian']; //图片地址
-                $turl = $two['webdizhi']; //链接地址
+                $desription = $two['0']['jianjie']; //简介
+                $image = $two['0']['tupian']; //图片地址
+                $turl = $two['0']['webdizhi']; //链接地址
                 $resultStr = sprintf($picTpl, $fromUsername, $toUsername, $time, $msgType, $title,$desription,$image,$turl);
+                echo $resultStr;
+            }elseif($keyword==$one['0']['wenorder']){
+                $msgType = "text";
+                $contentStr = $one['0']['wencontent'];
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }elseif(!empty($keyword )){
                 $msgType = "news";
