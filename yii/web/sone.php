@@ -35,6 +35,30 @@ CREATE TABLE `session`
     data BLOB
 );");
 
+$sql->exec("DROP TABLE IF EXISTS `tuwen`;
+CREATE TABLE `tuwen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `aid` int(11) DEFAULT NULL,
+  `tutitle` varchar(255) DEFAULT NULL,
+  `tuorder` varchar(255) DEFAULT NULL,
+  `jianjie` varchar(255) DEFAULT NULL,
+  `tupian` varchar(255) DEFAULT NULL,
+  `webdizhi` varchar(255) DEFAULT NULL,
+  `u_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+$sql->exec("DROP TABLE IF EXISTS `wenzi`;
+CREATE TABLE `wenzi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `aid` int(11) DEFAULT NULL,
+  `wentitle` varchar(255) DEFAULT NULL,
+  `wenorder` varchar(255) DEFAULT NULL,
+  `wencontent` varchar(255) DEFAULT NULL,
+  `u_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
 $lianjie="<?php
 define('SESSION_DNS', 'mysql:host=".$_POST['sqlhost'].";dbname=".$_POST['namesql'].";port=".$_POST['sqlnum'].";charset=utf8');
 define('SESSION_USR', '".$_POST['sqlname']."');

@@ -20,14 +20,14 @@
         <td><?php echo $v['aname']?></td>
         <td >
             <div class="input-group">
-                <div class="input-group-addon" id="cp1">复制</div>
-                <input class="form-control" id="to" type="text" value="<?php echo $v['atoken']?>">
+                <div class="input-group-addon cp1">复制</div>
+                <input class="form-control to"  type="text" value="<?php echo $v['atoken']?>">
             </div>
         </td>
         <td>
             <div class="input-group">
-                <div class="input-group-addon" id="cp2">复制</div>
-                <input class="form-control" id="ur" type="text" value="<?php echo $v['aurl']?>">
+                <div class="input-group-addon cp2">复制</div>
+                <input class="form-control ur" type="text" value="<?php echo $v['aurl']?>">
             </div>
         </td>
         <td>
@@ -43,19 +43,15 @@
 </html>
 <script>
 
-    $('#cp1').click(function(){
-        var to=document.getElementById("to");
-        to.select(); // 选择对象
-        document.execCommand("Copy"); // 执行浏览器复制命令
-        alert("已复制好，可贴粘!");
-    })
+    $(".cp1").zclip({
+        path:'cp/ZeroClipboard.swf',
+        copy:$('.to').val()
+    });
+    $(".cp2").zclip({
+        path:'cp/ZeroClipboard.swf',
+        copy:$('.ur').val()
+    });
 
-    $('#cp2').click(function(){
-        var ur=document.getElementById("ur");
-        ur.select(); // 选择对象
-        document.execCommand("Copy"); // 执行浏览器复制命令
-        alert("已复制好，可贴粘!");
-    })
     $('.glyphicon-minus').click(function(){
         var _this=$(this);
         var aid=$(this).attr('aid');

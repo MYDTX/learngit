@@ -7,18 +7,16 @@
 include ('Poo.class.php');
 $poo=new Poo();
 $str=$_GET['str'];
-$token=$poo->find('atoken','account',"atok='$str'");
-define("TOKEN", $token);
+$data=$poo->select('account',"atok='$str'");//查询数据
+define("TOKEN", $data['0']['atoken']);
+define("ID", $data['0']['aid']);
 $wechatObj = new wechatCallbackapiTest();
 $wechatObj->valid();
-
 class wechatCallbackapiTest
 {
     public function valid()
     {
         $echoStr = $_GET["echostr"];
-
-
         if($this->checkSignature()){
             echo $echoStr;
             $this->responseMsg();
@@ -28,11 +26,10 @@ class wechatCallbackapiTest
 
     public function responseMsg()
     {
-        //get post data, May be due to the different environments
+        $poo=new Poo();
+        $one=$poo->select('wenzi','aid='.ID);
+        $two=$poo->select('tuwen','aid='.ID);
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
-        //extract post data
-
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
@@ -61,18 +58,18 @@ class wechatCallbackapiTest
                 $msgType = "news";
                 $title = "百度"; //标题
                 $data  = date('Y-m-d'); //时间
-                $desription = "“不会就百度吧！“"; //简介
+                $desription = "“糯米，贴吧，地图，视频，音乐，SEO，登录，“"; //简介
                 $image = "https://www.baidu.com/img/bd_logo1.png"; //图片地址
                 $turl = "https://www.baidu.com/index.php?tn=monline_3_dg"; //链接地址
                 $resultStr = sprintf($picTpl, $fromUsername, $toUsername, $time, $msgType, $title,$desription,$image,$turl);
                 echo $resultStr;
-            }elseif($keyword=="百度"){
+            }elseif($keyword==$two['tuorder']){
                 $msgType = "news";
-                $title = "百度"; //标题
+                $title = $two['tutitle']; //标题
                 $data  = date('Y-m-d'); //时间
-                $desription = "“不会就百度吧！“"; //简介
-                $image = "https://www.baidu.com/img/bd_logo1.png"; //图片地址
-                $turl = "https://www.baidu.com/index.php?tn=monline_3_dg"; //链接地址
+                $desription = $two['jianjie']; //简介
+                $image = $two['tupian']; //图片地址
+                $turl = $two['webdizhi']; //链接地址
                 $resultStr = sprintf($picTpl, $fromUsername, $toUsername, $time, $msgType, $title,$desription,$image,$turl);
                 echo $resultStr;
             }elseif(!empty($keyword )){

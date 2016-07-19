@@ -147,4 +147,5 @@ class IndexController extends Controller
         }
         return $randString ;
     }
+
 }
