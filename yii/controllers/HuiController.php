@@ -18,9 +18,10 @@ class HuiController extends Controller
      * 添加回复
      * */
     public function actionHuifu(){
+        $poo=new \Poo();
         $this->actionChecklogin();
         $u_id=Yii::$app->session['u_id'];
-        $data=$this->poo->select('account',"u_id='$u_id'");
+        $data=$poo->select('account',"u_id='$u_id'");
         return $this->render('huifu',['data'=>$data]);
     }
 
@@ -41,8 +42,9 @@ class HuiController extends Controller
      * 文字添加
      * */
     public function actionWenzi(){
+        $poo=new \Poo();
         $_POST['u_id']=Yii::$app->session['u_id'];
-        $bool=$this->poo->insert('wenzi',$_POST);
+        $bool=$poo->insert('wenzi',$_POST);
         if($bool){
             $this->redirect('index.php?r=hui/show');
         }else{
@@ -55,7 +57,8 @@ class HuiController extends Controller
      * */
     public function actionTuwen(){
         $_POST['u_id']=Yii::$app->session['u_id'];
-        $bool=$this->poo->insert('tuwen',$_POST);
+        $poo=new \Poo();
+        $bool=$poo->insert('tuwen',$_POST);
         if($bool){
             $this->redirect('index.php?r=hui/show');
         }else{

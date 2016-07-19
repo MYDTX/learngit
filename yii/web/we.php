@@ -2,9 +2,8 @@
 /**
  * wechat php test
  */
-
 //define your token
-include ('Poo.class.php');
+include ('auto.php');
 $poo=new Poo();
 $str=$_GET['str'];
 $data=$poo->select('account',"atok='$str'");//查询数据

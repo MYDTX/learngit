@@ -27,7 +27,6 @@ use Yii;
  */
 class Controller extends Component implements ViewContextInterface
 {
-    public $poo;
     /**
      * @event ActionEvent an event raised right before executing a controller action.
      * You may set [[ActionEvent::isValid]] to be false to cancel the action execution.
@@ -77,7 +76,6 @@ class Controller extends Component implements ViewContextInterface
      */
     public function __construct($id, $module, $config = [])
     {
-        $this->poo=new \Poo();
         $this->id = $id;
         $this->module = $module;
         parent::__construct($config);

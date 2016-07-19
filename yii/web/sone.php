@@ -64,6 +64,9 @@ define('SESSION_DNS', 'mysql:host=".$_POST['sqlhost'].";dbname=".$_POST['namesql
 define('SESSION_USR', '".$_POST['sqlname']."');
 define('SESSION_PWD', '".$_POST['sqlpwd']."');
 ";
+$auto="<?php
+include ('Poo.class.php');
+";
 
 
 $str="<?php
@@ -80,4 +83,5 @@ return [
 
 file_put_contents('lianjie.php',$lianjie);
 file_put_contents("../config/db.php",$str);
+file_put_contents('auto.php',$auto);
 file_put_contents('sql.txt',1);
